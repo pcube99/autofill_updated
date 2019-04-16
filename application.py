@@ -57,11 +57,7 @@ def login():
                     else:
                         login_user.append({str(i) : login_use[str(i)]})
                 print(login_user)
-                return jsonify(login_user)
-            else :
-                message = Markup("<strong> Password is wrong </strong>")
-                flash(message)
-    return render_template('login.html')
+        return jsonify(login_user)
 
 @app.route('/login_website', methods=['GET','POST'])
 def login_website():
