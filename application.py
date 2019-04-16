@@ -14,6 +14,7 @@ from flask import jsonify
 from random import randint
 import string
 import random
+import password
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = "autofill"
 app.config["MONGO_URI"] = "mongodb://ppp:PANKIL@cluster0-shard-00-00-tqm1v.mongodb.net:27017,cluster0-shard-00-01-tqm1v.mongodb.net:27017,cluster0-shard-00-02-tqm1v.mongodb.net:27017/autofill?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
@@ -39,8 +40,8 @@ def login():
        # print(login_user)
         if login_use:
             x = login_use['pwd']
-            print(x)
-            pss = x
+            print(password.decrypt(x[0],x[1]))
+            pss = password.decrypt(x[0],x[1])
             print("decrypt " + pss)
             if (passwor == pss):
                 print("HIIII")
@@ -53,7 +54,7 @@ def login():
                         continue
                     if "password" in i:
                         xx = login_use[str(i)]
-                        login_user.append({str(i) : xx})
+                        login_user.append({str(i) : password.decrypt(xx[0],xx[1])}) 
                     else:
                         login_user.append({str(i) : login_use[str(i)]})
                 print(login_user)
@@ -71,7 +72,7 @@ def login_website():
         if login_use:
             session['isverified'] = login_use['isverified']
             x = login_use['pwd']
-            if (request.form['password'] == x):
+            if (request.form['password'] == password.decrypt(x[0],x[1])):
                 session['email'] = request.form['email']
                 session['name'] = login_use['name']
                 session['times'] = login_use['times']
@@ -143,13 +144,14 @@ def signup():
         if existing_user is None:
             session['email'] = request.form['email']
             email_verification(request.form['email'])
-            hashpass=request.form['password']
+            hashpass=password.encrypt(request.form['password'])
+
             #print(sha256_crypt.verify("password", password))
             users.insert({'name' : request.form['first_name'] + " "+ request.form['last_name'],'firstname' : request.form['first_name'], 'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'pwd' : hashpass,
             'address' : request.form['address1'] + " "+ request.form['address2'] ,'address1' : request.form['address1'],'address2' : request.form['address2'],
             'zipcode' : request.form['zipcode'],'city' : request.form['city'],
             'state' : request.form['state'],'phone' : request.form['phone_no'], 'mobile' : request.form['phone_no'],
-            'times' : '1', 'isverified' : "false"
+            'isverified' : "false"
             })
             session['email'] = request.form['email']
             session['name'] = request.form['first_name']
@@ -185,9 +187,9 @@ def autoupdate_text():
     val = request.args.get('value', None)
     if(val in ""):
         return "null value"
-    # if "password" in idd:
-    #     print(idd)
-    #     val = password.encrypt(val)
+    if "password" in idd:
+        print(idd)
+        val = password.encrypt(val)
     if(request.method == 'POST'):
         return autofill.autoupdate_texti(idd,val)
     else:
@@ -203,7 +205,7 @@ def details():
     if(request.method == 'GET'):
         for i in existing_user:
             if str(i) in "password":
-                rows[str(i)] = str(x)
+                rows[str(i)] = str(password.decrypt(x[0],x[1]))            
             else:
                 rows[str(i)] = str(existing_user[str(i)]) 
         #print(rows)
@@ -214,8 +216,8 @@ def details():
         for j in existing_user:
             if(j not in "_id" and j not in "times" and j not in "isverified"):
                 if j in "password":
-                    rows[str(j)] = request.form[str(j)]
-                    passw = request.form[str(j)]
+                    rows[str(j)] = password.encrypt(request.form[str(j)])[0]                    
+                    passw = password.encrypt(request.form[str(j)])                    
                     op = []
                     op.append(passw[0])
                     op.append(passw[1])
@@ -277,7 +279,7 @@ def changedpassword():
     if request.method == "POST":
         if(str(request.form['changed_password']) in change_password_array):
             change_password_array.remove(str(request.form['changed_password']))
-            passw = change_password
+            passw = password.encrypt(change_password)            
             opp = []
             opp.append(passw[0])
             opp.append(passw[1])
