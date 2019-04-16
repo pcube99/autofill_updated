@@ -49,7 +49,7 @@ def login():
                 session['name'] = login_use['name']
                 login_user = []
                 for i in login_use:
-                    if(i in "_id"):
+                    if(i in "_id" or i == "password"):
                         continue
                     if "password" in i:
                         xx = login_use[str(i)]
