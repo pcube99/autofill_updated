@@ -30,6 +30,7 @@ def index():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    login_user = []
     email = request.args.get('email', None)
     passwor = request.args.get('password', None)
     if email in '' or passwor in '' or '@' not in email or not re.match(r'^\w+$',passwor ) or len(passwor) < 6:
@@ -47,7 +48,6 @@ def login():
                 session['email'] = email
                 session['name'] = login_use['name']
                 session['times'] = login_use['times']
-                login_user = []
                 for i in login_use:
                     if(i in "_id"):
                         continue
