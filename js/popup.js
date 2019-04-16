@@ -152,27 +152,27 @@ async function password_manager(){
 
   
   for(var i=0;i<data1.length;i++){
-    if(fill_website_email==data1[i]){
-      var temp =i;
-      boolemail=true;
-      console.log("i is" + i);
-      console.log(data1);
-      chrome.storage.local.get(['login_response'],function(resultt){
-        console.log(JSON.parse(resultt.login_response));
-        console.log("i isss "+i);
-        console.log(JSON.parse(resultt.login_response)[temp]);
-      chrome.storage.local.set({data_website_email : JSON.parse(resultt.login_response)[temp][data1[temp]]},  function(){
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-          chrome.storage.local.get(['data_website_email'],function(new_fill_website_email){
-              chrome.tabs.executeScript(
-                  tabs[0].id,
-                  {code: "document.getElementsByName('email')[0].value = '"+new_fill_website_email.data_website_email+"';"});
-          
+      if(fill_website_email==data1[i]){
+        var temp =i;
+        boolemail=true;
+        console.log("i is" + i);
+        console.log(data1);
+        chrome.storage.local.get(['login_response'],function(resultt){
+          console.log(JSON.parse(resultt.login_response));
+          console.log("i isss "+i);
+          console.log(JSON.parse(resultt.login_response)[temp]);
+        chrome.storage.local.set({data_website_email : JSON.parse(resultt.login_response)[temp][data1[temp]]},  function(){
+          chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.storage.local.get(['data_website_email'],function(new_fill_website_email){
+                chrome.tabs.executeScript(
+                    tabs[0].id,
+                    {code: "document.getElementsByName('email')[0].value = '"+new_fill_website_email.data_website_email+"';"});
+            
+        });
+      });
       });
     });
-    });
-  });
-    }
+      }
     
     if(fill_website_password == data1[i]){
 
@@ -180,11 +180,11 @@ async function password_manager(){
     boolpassword=true;
       console.log("i is" + i);
       console.log(data1);
-      chrome.storage.local.get(['login_response'],function(resultt){
-        console.log(JSON.parse(resultt.login_response));
+      chrome.storage.local.get(['login_response'],function(resultt1){
+        console.log(JSON.parse(resultt1.login_response));
         console.log("i isss "+i);
-        console.log(JSON.parse(resultt.login_response)[temp1]);
-      chrome.storage.local.set({data_website_password : JSON.parse(resultt.login_response)[temp1][data1[temp1]]},  function(){
+        console.log(JSON.parse(resultt1.login_response)[temp1]);
+      chrome.storage.local.set({data_website_password : JSON.parse(resultt1.login_response)[temp1][data1[temp1]]},  function(){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.storage.local.get(['data_website_password'],function(new_fill_website_password){
               chrome.tabs.executeScript(
@@ -311,6 +311,7 @@ function documentEvents3() {
     httpGetAsync(("https://autofill-sen.herokuapp.com/autofill?url=" + url), function(response) {
   var ans=response;
   flag=[];
+  updateflag = []
     data = JSON.parse(ans)[0];
     data1 = JSON.parse(ans)[1];
     count = data1.length;
@@ -331,6 +332,8 @@ function documentEvents3() {
        //myLoop(data1.length);
        for(var ii=0;ii<data1.length;ii++){
        for(var j=0;j<data.length;j++){
+         if((data1[ii].includes("password")))
+          continue;
         if(data[j]['dname'].includes(data1[ii].replace(/[^a-zA-Z ]/g, "").toLowerCase()) && updateflag[j]==0 ){
           fla=1;
           updateflag[j]=1;
@@ -352,7 +355,6 @@ function documentEvents3() {
     //   });
     // });
     //   });
-      console.log("not request");
       httpGetAsync(("https://autofill-sen.herokuapp.com/autofill?url=" + url), function(response) {
         var ans=response;
         if(ans){
@@ -379,7 +381,6 @@ function documentEvents3() {
     
 
     chrome.storage.local.set({website_password : website_password},  function(){
-
     });
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.storage.local.get(['website_password'],function(website){
