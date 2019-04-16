@@ -252,13 +252,14 @@ def verify():
         redirect(url_for('login'))
     return render_template('verification.html')
 
-@app.route('/resend', methods=['POST', 'GET'])
+@app.route('/resend', methods=['POST'])
 def resend():
     if request.method == "POST":
         message = Markup("<strong>We have resent you an OTP on this email, Check your inbox.</strong>")
         flash(message)
-        email_verification(session['email'])
-    return render_template('verification.html')
+        xx = email_verification(session['email'])
+        if(xx):
+            return render_template('verification.html')
 
 @app.route('/forgetpassword', methods=['POST', 'GET'])
 def forgetpassword():
