@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Auto Fill</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../static/style.css">
+        <!-- <style>
+      body{
+        background-image: url("../static/background.jpg");
+          }
+  
+      </style> -->
+</head>
+<body>
+ 
+<nav class="navbar navbar-dark bg-dark">
+    <div class="navbar-header ">
+        <a class="navbar-brand" href="/"><i class="fab fa-autoprefixer"></i> Application Bharo</a>
+    </div>>
+  <ul class="nav nav-tabs">
+    {% if session.isverified %}
+    <li class="nav-item">
+      <a class="nav-link active" href="#" ><i class="fas fa-home"></i><strong> Home</strong></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('details') }}" style="color :aliceblue"><i class="fas fa-info-circle"></i><strong> Details</strong></a>
+    </li>
+    
+    <li class="nav-item"> 
+
+        <a class="nav-link" href="{{ url_for('logout') }}" style="color :aliceblue"><i class="fas fa-sign-out-alt"></i><strong> Logout</strong></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="help" style="color :aliceblue"><i class="fas fa-question-circle"></i><strong> Help</strong></a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link active" href="/"><i class="fas fa-home"></i><strong> Home</strong></a>
+          </li>
+      <li class="nav-item">
+          <a class="nav-link" href="signup" style="color :aliceblue"><i class="fas fa-user-plus"></i><strong> Signup</strong></a>
+        </li> 
+      <li class="nav-item">
+           <a class="nav-link" href="login_website" style="color :aliceblue"><i class="fas fa-sign-in-alt"></i><strong> Login</strong></a>
+         </li>
+         <li class="nav-item">
+     
+            <a class="nav-link" href="help" style="color :aliceblue"><i class="fas fa-question-circle"></i><strong> Help</strong></a>
+          </li>
+         {% endif %}
+         
+  </ul>
+</nav>
+<div class="jumbotron">
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680" id="grad1">
+            <div class="card card-1">
+              <div class="card-body">
+                  
+                  {% if session.isverified == 'true' %}
+                    <h1 id="front_text" class='deepshadow'>Hello, {{session.name}}</h1>
+                  </div>
+            </div>
+            <br>
+                    <div class="card card-1">
+                        <div class="card-body">
+                    <h1 id="front_text" class='deepshadow'>You have used autofill, {{session.times}} times.</h1>
+                        </div>
+                    </div>
+                    <br>
+                    {% else %}
+                    <div class="card card-1">
+                        <div class="card-body">
+                    <h1 id="front_text" class='deepshadow'>Welcome to Application-Bharo , your extension to save time.</h1>
+                    {% endif %}
+
+
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auto Fill</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+    <!-- <link rel="stylesheet" href="../static/index.css"> -->
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <!-- <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all"> -->
+    <link rel="stylesheet" href="../static/style.css">
+
+
+<!-- <style>
+        #grad1 {
+      background-color: orange; /* For browsers that do not support gradients */
+      background-image: repeating-linear-gradient(orange);  /* Standard syntax (must be last) */
+    }
+    body{
+      background-image: url("../static/background.jpg");
+
+        }
+        .page-wrapper {
+          min-height: 100vh;
+        }
+
+  </style> -->
+
+</head>
+<body>
+    <!-- <nav class="navbar navbar-light" style="background-color: #f9ccc2 ;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+                  <a class="navbar-brand" href="/"><strong class="black_text">Auto-Fill (Application Bharo)</strong></a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="/"><span class="glyphicon glyphicon-home black_text"></span> <strong class="black_text">Home</strong></a></li>
+                <li><a href="signup"><span class="glyphicon glyphicon-user black_text"></span> <strong class="black_text">Sign Up</strong></a></li>
+                <li><a href="login"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log in</strong></a></li>
+                <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
+
+              </ul>
+        </div>
+      </nav> -->
+     
+      <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+          <!-- <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+          <i class="fab fa-autoprefixer"></i>
+          Application Bharo
+        </a>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" href="/" style="color :aliceblue"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="signup" ><i class="fas fa-user-plus"></i> Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login_website" style="color :aliceblue"><i class="fas fa-sign-in-alt"></i> Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="help" style="color :aliceblue"><i class="fas fa-question-circle"></i> Help</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="jumbotron">
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+      <div class="wrapper wrapper--w680" id="grad1">
+          <div class="card card-1">
+            <div class="card-body">
+              <h2 align="center" class="paddin">Signup form</h2>
+
+              {% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-danger alert-dismissible fade show" style="width: auto; display: inline-block; 
+  margin-left: 20%;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{message}}
+    </div> 
+  {% endfor %}
+{% endif %}
+{% endwith %}
+
+              <form class="form-horizontal" method=POST action="{{ url_for('signup') }}">
+                  <div class="form-group row col-sm-10 ">
+                    <label class="col-form-label" for="name">First Name</label>
+                      <div class="col-sm-10">
+                        <input required style="margin-left: 5%" type="text" class="form-control" id="first_name" placeholder="John" name="first_name">
+                      </div>
+                  </div>
+                  
+
+                  <div class="form-group row col-sm-10" >
+                    <label class="col-form-label" for="email">Last Name</label>
+                      <div class="col-sm-10">
+                          <input required style="margin-left: 5%" type="text" class="form-control" id="last_name" placeholder="Patel" name="last_name">
+                      </div>
+                  </div>
+            
+                  <!-- <div class="form-group row col-sm-10" >
+                    <label class="col-form-label" for="email">User Name</label>
+                    <div class="col-sm-10">
+                        <input required type="text" class="form-control" id="username" placeholder="username" name="username">
+                    </div>
+                  </div> -->
+
+                  <div class="form-group row col-sm-10">
+                    <label class="col-form-label" for="exampleInputEmail1">Email address</label>
+                    <div class="col-sm-10">
+                      <input required style="margin-left: 1%" type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="abc@email.com">
+                    </div>
+                  </div>
+
+                  <!-- <div class="input-group form-group row col-sm-10" >
+                    <label class="col-sm-4 col-form-label" for="email">Email:</label>
+                    <div class="col-sm-10">
+                      <input type="email" class="input--style-1" id="email" name="email" placeholder="Email ID" name="email">
+                    </div>
+                  </div> -->
+                  
+                  <div class="form-group row col-sm-10">
+                    <label class="col-form-label" for="exampleInputPassword1">Password</label>
+                    <div class="col-sm-10">
+                      <input style="margin-left: 6%" required pattern="[A-Za-z0-9]{6,12}" type="password" class="form-control" name = "pwd" id="pwd" placeholder="Password">
+                      <span style="margin-left: 6%; font-size: 12px">Password length must be in range of 6-12 characters & no special characters are allowed.</span>
+            
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-2 input-group form-group row col-sm-10" >
+                    <label class="col-sm-4 col-form-label" for="pwd">Password:</label>
+                    <div class="col-sm-10">          
+                      <input type="password" class="input--style-1" id="pwd" placeholder="Password" name="pwd">
+                    </div>
+                  </div> -->
+                  
+                  <!-- <div class="form-group row col-sm-10">
+                    <label class="col-form-label" for="exampleInputPassword1">Confirm PWD</label>
+                    <div class="col-sm-10">
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
+                    </div>
+                  </div>
+                   -->
+
+                  <!-- <div class="col-2 input-group form-group row col-sm-10" >
+                        <label class="col-sm-4 col-form-label" for="pwd">Confirm Password:</label>
+                        <div class="col-sm-10">          
+                          <input type="password" class="input--style-1" id="pwd" placeholder="Confirm Password" name="confirm_pwd">
+                        </div>
+                </div> -->
+            
+
+                  <!-- <div class="form-group row col-sm-10" > 
+                      <label class="col-sm-4 col-form-label">Gender</label>
+                      <div class="radio col-sm-10" >
+                          <label>
+                          <input type="radio" name="l" value="male" >
+                          Male
+                      </label>
+                      </div>
+                      <div class="radio col-sm-10" >
+                          <label>
+                          <input type="radio"  name="l" value="female">
+                          Female
+                          </label>
+                      </div>
+                      <div class="radio col-sm-10" >
+                              <label>
+                                  <input type="radio"  name="l" value="other">
+                                  Other
+                              </label>
+                              </div>
+                  </div>     -->
+                  <!-- <div class="form-group row col-sm-10">
+                  <div class="">
+                      <div class="js-select-simple select--no-search">
+                          <label class="col-form-label">Gender</label>
+
+                          <select name="gender">
+                              <option>Select</option>
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>Other</option>
+                          </select>
+                          <div class="select-dropdown"></div>
+                      </div>
+                  </div>
+                </div> -->
+
+
+                        <!-- <div class="form-group row col-sm-10" >
+                          <label class="col-form-label" for="date">DOB</label>
+                          <div class="col-sm-10">
+                              <input type="date" class="form-control" value="yyyy-mm-dd" id="example-date-input" placeholder="username" name="dob">
+                          </div>
+                        </div> -->
+
+                      <div class="form-group row col-sm-10" > <!-- Street 1 -->
+                          <label for="street1_id" class="col-form-label">Address 1</label>
+                          <div class="col-sm-10">          
+                          <input required style="margin-left: 6%" type="text" class="form-control" name="address1" id="street1_id" placeholder="Street address, P.O. box, company name, c/o">
+                          </div>
+                      </div>					
+                 
+                                                          
+                      <div class="form-group row col-sm-10" > <!-- Street 2 -->
+                          <label for="street2_id" class="col-form-label">Address 2</label>
+                          <div class="col-sm-10">          
+                          <input required style="margin-left: 6%" type="text" class="form-control" name="address2" id="street2_id" placeholder="Apartment, suite, unit, building, floor, etc.">
+                          </div>
+                      </div>	
+                  
+                      <div class="form-group row col-sm-10" > <!-- Zip Code-->
+                          <label for="zip_id" class="col-form-label">Zip Code</label>               
+                          <div class="col-sm-10">          
+                          <input required style="margin-left: 7%" type="text" class="form-control" name="zipcode" id="zip_id" placeholder="Zipcode">
+                          </div>
+                      </div>
+                      
+                  <div class="form-group row col-sm-10" > 
+                    <label for="phone_no" class="col-form-label">Phone No.</label>               
+                    <div class="col-sm-10">          
+                    <input required style="margin-left: 5%" pattern="[7-9]{1}[0-9]{9}" type="text" class="form-control" name="phone_no" id="phone_no" placeholder="Phone Number">
+                    </div>
+                </div>
+                  
+                  <div class="form-group row col-sm-10" > <!-- City-->
+                      <label for="city_id" class="col-form-label">City</label>
+                      <div class="col-sm-10">          
+                      <input required style="margin-left: 13%" type="text" class="form-control" name="city" id="city_id" placeholder="City">
+                      </div>
+                  </div>	 
+                  
+                  <div class="form-group row col-sm-10" > <!-- City-->
+                    <label for="city_id" class="col-form-label">State</label>
+                    <div class="col-sm-10">          
+                    <input required style="margin-left: 11%" type="text" class="form-control" name="state" id="state_id" placeholder="State">
+                    </div>
+                </div>	 
+                <div class="form-group row col-sm-10" >        
+                  <div class="col-sm-4 col-form-label">
+                    <button type="submit" class="btn btn--radius btn--green btn btn-primary">Submit</button>
+                    
+                  </div>
+                </div>
+                  <br>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+    <!-- <script src="vendor/select2/select2.min.js"></script> -->
+    <script>
+        try {
+        var selectSimple = $('.js-select-simple');
+    
+        selectSimple.each(function () {
+            var that = $(this);
+            var selectBox = that.find('select');
+            var selectDropdown = that.find('.select-dropdown');
+            selectBox.select2({
+                dropdownParent: selectDropdown
+            });
+        });
+    
+    } catch (err) {
+        console.log(err);
+    }
+    
+    </script>
+</body>
+</html>

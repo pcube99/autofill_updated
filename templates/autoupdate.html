@@ -1,0 +1,105 @@
+<!-- Default form login -->
+
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Auto Fill</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../static/style.css">
+        <!-- <style>
+        #grad1 {
+      background-color: orange; /* For browsers that do not support gradients */
+      background-image: repeating-linear-gradient(orange);  /* Standard syntax (must be last) */
+    }
+    body{
+      background-image: url("../static/background.jpg");
+
+        }
+    </style> -->
+</head>
+<body class="main">
+        <!-- <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #f9ccc2 ;"> 
+                <div class="container-fluid">
+                   <div class="navbar-header ">
+                     <a class="navbar-brand" href="/"><strong class="black_text">Auto-Fill (Application Bharo)</strong></a>
+                   </div>
+                   <ul class="nav navbar-nav navbar-right">
+                     <li><a href="/"><span class="glyphicon glyphicon-home black_text"></span> <strong class="black_text">Home</strong></a></li>
+                     <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log out</strong></a></li>
+                     <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
+                     <li><a href="autofill"><span class="glyphicon glyphicon-ok black_text"></span> <strong class="black_text">Autofill</strong></a></li>
+                     <li><a href="{{ url_for('details') }}"><span class="glyphicon glyphicon-cog black_text"></span> <strong class="black_text">Details</strong></a></li>
+
+                   </ul>
+                 </div>
+         </nav> -->
+
+          
+<nav class="navbar navbar-dark bg-dark">
+    <div class="navbar-header ">
+        <a class="navbar-brand" href="/"><i class="fab fa-autoprefixer"></i> Application Bharo</a>
+    </div>>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" href="#"><i class="fas fa-home"></i><strong> Home</strong></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="autofill" style="color :aliceblue"><i class="fab fa-amilia"></i><strong> Autofill</strong></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('details') }}" style="color :aliceblue"><i class="fas fa-info-circle"></i><strong> Details</strong></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="help" style="color :aliceblue"><i class="fas fa-question-circle"></i><strong> Help</strong></a>
+      </li>
+      <!-- <li class="nav-item">
+          <a class="nav-link" href="signup" style="color :aliceblue"><i class="fas fa-user-plus"></i><strong> Signup</strong></a>
+        </li> -->
+      <!-- <li class="nav-item">
+           <a class="nav-link" href="login" style="color :aliceblue"><i class="fas fa-sign-in-alt"></i><strong> Login</strong></a>
+         </li>
+         <li class="nav-item"> -->
+            <a class="nav-link" href="{{ url_for('logout') }}" style="color :aliceblue"><i class="fas fa-sign-out-alt"></i><strong> Logout</strong></a>
+          </li>
+         
+  </ul>
+</nav>
+
+         <!-- <div class="container3" id="grad1"> -->
+            <div class="jumbotron">
+                <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+                    <div class="wrapper wrapper--w680" id="grad1">
+                        <div class="card card-1">
+                          <div class="card-body">       
+          <h2 align="center" class="paddin">Click below button to Autoupdate</h2>
+          {% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-danger alert-dismissible fade in" style="width: auto; display: inline-block;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{message}}
+    </div>
+  {% endfor %}
+{% endif %}
+{% endwith %}
+          <br>
+          <form action="{{ url_for('autoupdate_text') }}" method="post">
+            <div class="col-sm-10 col-form-label button_center">
+              <button type="submit" class="btn btn-primary" name="autoupdate1">Auto Update</button>
+            </div>
+          </form>
+        <!-- </div> -->
+     
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+    </body>
+</html>

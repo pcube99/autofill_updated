@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Auto Fill</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../static/style.css">
+        <script src="../js/index.js"></script>
+        <!-- <style>
+      body{
+        background-image: url("../static/background.jpg");
+          }
+  
+      </style> -->
+</head>
+<body>
+<!-- <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #f9ccc2 ;"> 
+       <div class="container-fluid">
+          <div class="navbar-header ">
+            <a class="navbar-brand" href="/"><strong class="black_text">Auto-Fill (Application Bharo)</strong></a>
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+              {% if session.email %}
+              <li><a href="/"><span class="glyphicon glyphicon-home black_text"></span> <strong class="black_text">Home</strong></a></li>
+              <li><a href="{{ url_for('details') }}"><span class="glyphicon glyphicon-cog black_text"></span> <strong class="black_text">Details</strong></a></li>
+              <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
+              <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log out</strong></a></li>
+  
+              {% else %}
+              <li><a href="signup"><span class="glyphicon glyphicon-user black_text"></span> <strong class="black_text">Sign Up</strong></a></li>
+              <li><a href="login_website"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log in</strong></a></li>
+              <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
+  
+              {% endif %}
+          </ul>
+        </div>
+</nav> -->
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="navbar-header ">
+        <a class="navbar-brand" href="/"><i class="fab fa-autoprefixer"></i> Application Bharo</a>
+    </div>>
+  <ul class="nav nav-tabs">
+      {% if session.isverified %}
+    <li class="nav-item">
+      <a class="nav-link" href="/" style="color :aliceblue"><i class="fas fa-home"></i><strong> Home</strong></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('details') }}"><i class="fas fa-info-circle"></i><strong> Details</strong></a>
+    </li>
+   
+    <li class="nav-item"> 
+
+        <a class="nav-link" href="{{ url_for('logout') }}" style="color :aliceblue"><i class="fas fa-sign-out-alt"></i><strong> Logout</strong></a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="help" style="color :aliceblue"><i class="fas fa-question-circle"></i><strong> Help</strong></a>
+        </li>
+        {% else %}
+
+    
+      <li class="nav-item">
+          <a class="nav-link" href="signup" style="color :aliceblue"><i class="fas fa-user-plus"></i><strong> Signup</strong></a>
+        </li> 
+      <li class="nav-item">
+           <a class="nav-link" href="login_website" style="color :aliceblue"><i class="fas fa-sign-in-alt"></i><strong> Login</strong></a>
+         </li>
+         <li class="nav-item">
+
+            <a class="nav-link" href="help" style="color :aliceblue"><i class="fas fa-question-circle"></i><strong> Help</strong></a>
+          </li>
+         {% endif %}
+  </ul>
+</nav>
+
+
+<div class="jumbotron">
+    <div class="page-wrapper bg-blue p-t-100 p-b-100 font-robo">
+        <div class="wrapper wrapper--w680" id="grad1">
+            <div class="card card-1">
+              <div class="card-body">
+<!-- <div id="details_title"> -->
+     <h1 align='center'>User Details</h1>   
+<!-- </div> -->
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-success alert-dismissible fade show" style="width: auto; display: inline-block; 
+  margin-left: 40%;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{message}}
+    </div> 
+  {% endfor %}
+{% endif %}
+{% endwith %}
+
+<form action="{{ url_for('details') }}" method="post">
+  <div class="col-sm-10 col-form-label button_center" id="details_button">
+    <button type="submit" class="btn btn-primary btn-lg" name="updatedetails1">Update Details</button>
+  </div>
+<div id="details">
+
+<br>
+
+{% block main %}
+<table class="table">
+        <tbody>
+            {% for row in rows %}
+           
+            {% if row not in "_id" and row not in "times" and row not in "isverified" %}          
+            <tr id="details_table">
+            <td >    {{row}}</td>
+            {% if row in "password" %}
+            <td>   <input pattern="[A-Za-z0-9]{6,12}" type="password" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input></td>
+            {% elif row in "phoneno" %}
+            <td>   <input pattern="[7-9]{1}[0-9]{9}" type="text" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input></td>
+              {% else %}
+              <td>   <input type="text" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input></td>
+
+          </tr>
+            {% endif %}
+            
+            {%endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
+
+
+</form>
+
+
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+</body>
+</html>

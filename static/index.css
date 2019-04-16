@@ -1,0 +1,115 @@
+body{
+    background-image: url("../static/background.jpg")
+}
+html,body{
+    margin:0;
+    height:100%;
+}
+#lost{
+    width:100%;
+     height:100%;
+  }
+.container1{
+   width: 44%;
+   align-content: center;
+   align-items: center;
+   border: 2px black;
+   border-radius: 25px;
+   height: 950px;
+   margin: auto;
+}
+
+.container2{
+    width: 35%;
+    align-content: center;
+    align-items: center;
+    border: 2px black;
+    border-radius: 25px;
+    margin: auto;
+    height: 350px;
+ }
+ .container3{
+    width: 35%;
+    align-content: center;
+    align-items: center;
+    border: 2px black;
+    border-radius: 25px;
+    margin: auto;
+    height: 250px;
+    padding: 20px;
+ }
+ .black_text{
+     color: black;
+ }
+
+ .button_center{
+     padding-left: 43%;
+ }
+
+.xyz{
+    text-align: center;
+    margin-left: 15%;
+}
+
+.black_text{
+    color: black;
+}
+
+.red_text{
+    color: red;
+}
+
+.left_align{
+    margin: auto;
+    display: block;
+}
+#help_text{
+    padding-left: 30%;
+    color: white;
+    font-size: 30px;
+    text-decoration-color: white;
+}
+a{
+    color: white;
+}
+.paddin{
+    padding-top: 5%;
+}
+#details_title{
+    font-weight: bold;
+    font-size: 40px;
+    align-content: center;
+    align-items: center;
+    color: white;
+    margin: auto;
+    padding-left: 40%
+}
+#details_table{
+    padding-left: 20%;
+}
+#details{
+    color: white;
+    font-size: 30px;
+}
+
+#front_text {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+  font-size: 40px;
+  padding: 80px 50px;
+  text-align: center;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+}
+
+.deepshadow {
+  color: #e0dfdc;
+  background-color: #333;
+  letter-spacing: 0.1em;
+  text-shadow: 0 -1px 0 #fff, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828, 0 5px 0 #262626, 0 6px 0 #242424, 0 7px 0 #222, 0 8px 0 #202020, 0 9px 0 #1e1e1e, 0 10px 0 #1c1c1c, 0 11px 0 #1a1a1a, 0 12px 0 #181818, 0 13px 0 #161616, 0 14px 0 #141414, 0 15px 0 #121212, 0 22px 30px rgba(0, 0, 0, 0.9);
+}
+
+
+
+
+
+

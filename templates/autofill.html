@@ -1,0 +1,67 @@
+<!-- Default form login -->
+
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Auto Fill</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../static/index.css">
+        <style>
+        #grad1 {
+      background-color: orange; /* For browsers that do not support gradients */
+      background-image: repeating-linear-gradient(orange);  /* Standard syntax (must be last) */
+    }
+    body{
+      background-image: url("../static/background.jpg");
+        }
+    </style>
+</head>
+<body class="main">
+        <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #f9ccc2 ;"> 
+                <div class="container-fluid">
+                   <div class="navbar-header ">
+                     <a class="navbar-brand" href="/"><strong class="black_text">Auto-Fill (Application Bharo)</strong></a>
+                   </div>
+                   <ul class="nav navbar-nav navbar-right">
+                      {% if session.email %}
+                      <li><a href="/"><span class="glyphicon glyphicon-home black_text"></span> <strong class="black_text">Home</strong></a></li>
+                      <li><a href="autofill"><span class="glyphicon glyphicon-ok black_text"></span> <strong class="black_text">Autofill</strong></a></li>
+                      <li><a href="{{ url_for('details') }}"><span class="glyphicon glyphicon-cog black_text"></span> <strong class="black_text">Details</strong></a></li>
+                      <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
+                      <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log out</strong></a></li>
+          
+                      {% else %}
+                      <li><a href="signup"><span class="glyphicon glyphicon-user black_text"></span> <strong class="black_text">Sign Up</strong></a></li>
+                      <li><a href="login_website"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log in</strong></a></li>
+                      <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
+          
+                      {% endif %}
+                   </ul>
+                 </div>
+         </nav>
+
+         <div class="container2" id="grad1">
+        
+          <h2 align="center" class="paddin">Autofill Link</h2>
+          <form action="{{ url_for('autofill_text') }}" method="post">
+            <div class="form-group row col-sm-10" >
+              <label class="col-sm-4 col-form-label" for="email">URL:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="link" placeholder="Enter URL" name="link">
+              </div>
+            </div>
+            <div class="col-sm-4 col-form-label">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+                 
+      
+          </form>
+        </div>
+     
+    </body>
+</html>
