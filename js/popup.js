@@ -180,11 +180,11 @@ async function password_manager(){
     boolpassword=true;
       console.log("i is" + i);
       console.log(data1);
-      chrome.storage.local.get(['login_response'],function(resultt1){
-        console.log(JSON.parse(resultt1.login_response));
+      chrome.storage.local.get(['login_response'],function(resultt){
+        console.log(JSON.parse(resultt.login_response));
         console.log("i isss "+i);
-        console.log(JSON.parse(resultt1.login_response)[temp1]);
-      chrome.storage.local.set({data_website_password : JSON.parse(resultt1.login_response)[temp1][data1[temp1]]},  function(){
+        console.log(JSON.parse(resultt.login_response)[temp1]);
+      chrome.storage.local.set({data_website_password : JSON.parse(resultt.login_response)[temp1][data1[temp1]]},  function(){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.storage.local.get(['data_website_password'],function(new_fill_website_password){
               chrome.tabs.executeScript(
