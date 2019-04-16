@@ -15,6 +15,7 @@ import password
 from random import randint
 import string
 import random
+import password
 myapp = Flask(__name__)
 myapp.config["MONGO_DBNAME"] = "autofill"
 myapp.config["MONGO_URI"] = "mongodb://ppp:PANKIL@cluster0-shard-00-00-tqm1v.mongodb.net:27017,cluster0-shard-00-01-tqm1v.mongodb.net:27017,cluster0-shard-00-02-tqm1v.mongodb.net:27017/autofill?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin"
@@ -39,21 +40,17 @@ def login():
         login_use = users.find_one({'email' : email})
        # print(login_user)
         if login_use:
-            x = login_use['password']
-            pss = password.decrypt(x[0],x[1])
+            x = login_use['pwd']
+            pss =password.decrypt(x[0],x[1])
             if (passwor == pss):
                 session['email'] = email
                 session['name'] = login_use['name']
-                session['times'] = login_use['times']
                 login_user = []
                 for i in login_use:
                     if(i in "_id"):
                         continue
-                    if "password" in i:
-                        xx = login_use[str(i)]
-                        login_user.append({str(i) : password.decrypt(xx[0],xx[1])})
-                    else:
-                        login_user.append({str(i) : login_use[str(i)]})
+                    
+                    login_user.append({str(i) : login_use[str(i)]})
                 return "successfully login"
             else :
                 message = Markup("<strong> Password is wrong </strong>")
@@ -67,11 +64,10 @@ def login_website():
         login_use = users.find_one({'email' : request.form['email']})
         if login_use:
             session['isverified'] = login_use['isverified']
-            x = login_use['password']
-            if (request.form['password'] == password.decrypt(x[0],x[1])):
+            x = login_use['pwd']
+            if (request.form['pwd'] == password.decrypt(x[0],x[1])):
                 session['email'] = request.form['email']
                 session['name'] = login_use['name']
-                session['times'] = login_use['times']
                 if login_use['isverified'] == 'false':
                     message = Markup("<strong>Verify your email !</strong>")
                     flash(message)
@@ -140,17 +136,16 @@ def signup():
         if existing_user is None:
             session['email'] = request.form['email']
             email_verification(request.form['email'])
-            hashpass=password.encrypt(request.form['password'])
+            hashpass=password.encrypt(request.form['pwd'])
             #print(sha256_crypt.verify("password", password))
-            users.insert({'name' : request.form['first_name'],'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'password' : hashpass,
+            users.insert({'name' : request.form['first_name'],'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'pwd' : hashpass,
             'address' : request.form['address1'],'address1' : request.form['address2'],
             'zipcode' : request.form['zipcode'],'city' : request.form['city'],
             'state' : request.form['state'],'no' : request.form['phone_no'],
-            'times' : '1', 'isverified' : "false"
+            'isverified' : "false"
             })
             session['email'] = request.form['email']
             session['name'] = request.form['first_name']
-            session['times'] = '1'
             return redirect(url_for('verify'))
         else:
             message = Markup("<strong>That Account already exists!</strong>")
@@ -164,15 +159,12 @@ def autofill_text():
     users = mongo.db.users
     url = request.args.get('url', None)
     email = request.args.get('email', None)
+    #print(email)
     passwor = request.args.get('password', None)
     print(url)
     existing_user = users.find_one({'email' : email})
     if(request.method == 'POST'):
-       # print(str(int(existing_user['times'])+1))
-        users.update({'email': existing_user['email']}, {'$set' : {'times' : str(int(existing_user['times'])+1)}})
-        existing_user = users.find_one({'email' : session['email']})
-        session['times'] = existing_user['times']
-        #print('after' +  session['times'])
+        existing_user = users.find_one({'email' : email})
         return render_template("autoupdate.html")
     else:
         if email in '' or passwor in '' or '@' not in email or not re.match(r'^\w+$',passwor ) or len(passwor) < 6:
@@ -181,25 +173,34 @@ def autofill_text():
         login_use = users.find_one({'email' : email})
     # print(login_user)
         if login_use:
-            x = login_use['password']
+            x = login_use['pwd']
             pss = password.decrypt(x[0],x[1])
             if (passwor == pss):
                 return "success"
             else:
                 return "wrong password or email"
         else:
-            return 'wrong login'  
+            return 'wrong login'
+            
 @myapp.route('/autoupdate', methods=['POST', 'GET'])
 def autoupdate_text():
+    users = mongo.db.users
+    email = request.args.get('email', None)
+    passwor = request.args.get('password', None)
     idd = request.args.get('id', None)
     val = request.args.get('value', None)
-    if "password" in idd:
-        idd = password.encrypt(val)
-    if(request.method == 'POST'):
-        return autofill.autoupdate_texti(idd,val)
-    else:
-        return autofill.autoupdate_texti(idd,val)
+    user_v = users.find_one({'email' : email})
+    if user_v:
+        x=user_v['pwd']
+        pss = password.decrypt(x[0],x[1])
+        print(pss)
+        if(passwor==pss):
+            return "success"
+        else: 
+            return "wrong password or email"
 
+    else:
+        return 'wrong login'
 @myapp.route('/details', methods=['POST', 'GET'])
 def details():
     rows = {}
@@ -212,7 +213,7 @@ def details():
         login_use = users.find_one({'email' : email})
     # print(login_user)
         if login_use:
-            x = login_use['password']
+            x = login_use['pwd']
             pss = password.decrypt(x[0],x[1])
             if (passwor == pss):
                 login_user = []
@@ -221,13 +222,13 @@ def details():
                         continue
                     if "password" in i:
                         xx = login_use[str(i)]
-                        login_user.append({str(i) : password.decrypt(xx[0],xx[1])})
+                        login_user.append({str(i) : xx})
                     else:
                         login_user.append({str(i) : login_use[str(i)]})
-                        x = login_use['password']
+                        x = login_use['pwd']
                         for i in login_use:
                             if str(i) in "password":
-                                rows[str(i)] = str(password.decrypt(x[0],x[1]))
+                                rows[str(i)] = str(x)
                             else:
                                 rows[str(i)] = str(login_use[str(i)]) 
                         #print(rows)
@@ -247,21 +248,28 @@ def help():
 @myapp.route('/verify', methods=['POST', 'GET'])
 def verify():
     users = mongo.db.users
-    existing_user = users.find_one({'email' : session['email']})
-    if existing_user['isverified'] == 'false':
-        if request.method == "POST":
-            print(otp_array)
-            print(request.form['otp'])
-            if(str(request.form['otp']) in otp_array):
-                otp_array.remove(str(request.form['otp']))
-                users.update({'email': existing_user['email']}, {'$set' : {'isverified' : "true"}})
-                return redirect(url_for('login_website'))
-            else:
-                message = Markup("<strong>Wrong OTP , Try again !</strong>")
-                flash(message)
+    email = request.args.get('email', None)
+    #print(email)
+    passwor = request.args.get('password', None)
+    en_otp= request.args.get('otp', None)
+    #print(en_otp)
+    existing_user = users.find_one({'email' : email})
+    if existing_user:
+        print("true")
     else:
-        redirect(url_for('login'))
-    return render_template('verification.html')
+        return "invalid login"
+    if existing_user['isverified'] == 'false':
+        if request.method == "GET":
+            otp_array={"2421","3421","5421","6421"}
+            print(otp_array)
+            print(en_otp)
+            if(str(en_otp) in otp_array):
+                return 'verified'
+            else:
+                return "wrong otp"
+    else:
+        return "already verified"
+    #return render_template('verification.html')
 
 @myapp.route('/resend', methods=['POST', 'GET'])
 def resend():
@@ -281,21 +289,24 @@ def forgetpassword():
 
 @myapp.route('/changedpassword', methods=['POST', 'GET'])
 def changedpassword():
-    if request.method == "POST":
-        if(str(request.form['changed_password']) in change_password_array):
-            change_password_array.remove(str(request.form['changed_password']))
-            passw = password.encrypt(change_password)
-            opp = []
-            opp.append(passw[0])
-            opp.append(passw[1])
-            users = mongo.db.users
-            existing_user = users.find_one({'email' : session['email']})
-            users.update({'email': existing_user['email']}, {'$set' : {'password' : opp}})
-            return redirect(url_for('login_website'))
+    #if request.method == "POST":
+        new_pass=request.args.get('reset_pass', None)
+        change_password_array={"654321"}
+        if(str(new_pass) in change_password_array):
+            #change_password_array.remove(str(request.form['changed_password']))
+            #passw = password.encrypt(change_password)
+            #opp = []
+            #opp.append(passw[0])
+            #opp.append(passw[1])
+            #users = mongo.db.users
+            #existing_user = users.find_one({'email' : session['email']})
+            #users.update({'email': existing_user['email']}, {'$set' : {'password' : opp}})
+            return "password changed"
         else:
-            message = Markup("<strong>Please enter the password which is sent to your registered email.</strong>")
-            flash(message)
-    return render_template('changepassword.html')
+            return "enter the password which is sent to your registered email"	
+            #message = Markup("<strong>Please enter the password which is sent to your registered email.</strong>")
+            #flash(message)
+    #return render_template('changepassword.html')
 
 @myapp.errorhandler(404)
 def page_not_found(e):

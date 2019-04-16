@@ -37,7 +37,7 @@ class TestMyApp(unittest.TestCase):
 
     #signup page is working
     def test_signup(self):
-        rv = self.myapp.get('signup')
+        rv = self.myapp.get('/signup')
         self.assertEqual(rv.status, '200 OK')
 
     #checking help page
@@ -89,11 +89,58 @@ class TestMyApp(unittest.TestCase):
     def test_loginwebsite(self):
         rv = self.myapp.get('/login_website')
         self.assertEqual(rv.status, '200 OK') 
+
+    #autoupdate when true details
+    def test_autoupdate(self):
+        rv = self.myapp.get('/autoupdate?email=gg3@mailsac.com&password=123456&id=name&value=pankil')
+        self.assertEqual(str(rv.data).split('b')[1].split("'")[1], 'success')
+
+    #autoupdate when wrong email or pass
+    def test_autoupdate1(self):
+        rv = self.myapp.get('/autoupdate?email=gg3@mailsac.com&password=123456&id=email&value=201601094daiict@gmail.com')
+        self.assertEqual(str(rv.data).split('b')[1].split("'")[1], 'wrong password or email')
+
+    # autoupdate when no such user exists 
+    def test_autoupdate2(self):
+        rv = self.myapp.get('/autoupdate?email=201601094daiic@gmail.com&password=qwer1234&url=https://github.com&id=email&value=201601094daiict@gmail.com')
+        self.assertEqual(str(rv.data).split('b')[1].split("'")[1], 'wrong login')
+
+    # verify when no such user exists
+    def test_verify(self):
+        rv1 = self.myapp.get('/verify?email=milandungrani@gmail.com&password=123456')
+        self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "invalid login")
+
+    # verify when user is already verified
+    def test_verify1(self):
+        rv1 = self.myapp.get('/verify?email=milandungrani42@gmail.com&password=123456&otp=2421')
+        self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "already verified")
+
+    # verify when user enters right otp
+    def test_verify2(self):
+        rv1 = self.myapp.get('/verify?email=lysander.jeriko@bullstore.net&password=123456&otp=2421')
+        self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "verified")
+
+    # verify when user enters wrong otp
+    def test_verify3(self):
+        rv1 = self.myapp.get('/verify?email=lysander.jeriko@bullstore.net&password=123456&otp=2422')
+        self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "wrong otp")
+
+    # change password when user enters different password than sent to his registered mail
+    def test_changepass(self):
+        rv1 = self.myapp.get('/changedpassword?reset_pass=123456')
+        self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "enter the password which is sent to your registered email")
+
+    # change password when user enters same password as sent to his registered mail
+    def test_changepass1(self):
+        rv1 = self.myapp.get('/changedpassword?reset_pass=654321')
+        self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "password changed")
+
+    #check response of resend page
+    def test_resend(self):
+        rv = self.myapp.get('/resend')
+        self.assertEqual(rv.status, '200 OK')
+    
         
     # def test_autoupdate(self):
     #     rv = self.myapp.get('afss.herokuapp.com/autoupdate')
-    #     self.assertEqual(rv.status, '500 INTERNAL SERVER ERROR')
-
-
-
-       
+#     self.assertEqual(rv.status, '500 INTERNAL SERVER ERROR')
