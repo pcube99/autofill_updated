@@ -184,9 +184,9 @@ def autofill_text():
 def autoupdate_text():
     idd = request.args.get('id', None)
     val = request.args.get('value', None)
-    if "password" in idd:
-        print(idd)
-        val = password.encrypt(val)
+    # if "password" in idd:
+    #     print(idd)
+    #     val = password.encrypt(val)
     if(request.method == 'POST'):
         return autofill.autoupdate_texti(idd,val)
     else:

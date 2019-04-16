@@ -16,7 +16,8 @@ def decrypt(password, key):
     decoded_text = cipher_suite.decrypt(password)
     return (str(decoded_text).split("'")[1])
 
-#x=encrypt("milan")
-# y=decrypt("gAAAAABctba-czW1RXQjNNlkCZAK5XnWgb-H0sNJHH1dGWeMINV02RyvleZTZzQVkyG2UuEzMh0rNUjSX11UzFzG-Ga78ptKyQ==","HoKI6PB4oudbYR6KjTycuI1fqs4T0OUVP9DHjmNGo1o=")
-#print(x)
+# x=encrypt("123456")
+
+# y=decrypt(x[0],x[1])
+# print(x)
 # print(y)
