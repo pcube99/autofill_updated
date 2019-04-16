@@ -94,5 +94,7 @@ def func(link):
 def autoupdate_texti(idd, value):
     users = mongo.db.users
     existing_user = users.find_one({'email' : session['email']})
+    print("id is " + idd)
+    print("val is " + value)
     users.update({"email": existing_user["email"]}, {"$set": {idd : value}})
     return 'OK'
