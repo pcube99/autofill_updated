@@ -183,6 +183,8 @@ def autofill_text():
 def autoupdate_text():
     idd = request.args.get('id', None)
     val = request.args.get('value', None)
+    if(val in ""):
+        return "null value"
     # if "password" in idd:
     #     print(idd)
     #     val = password.encrypt(val)
