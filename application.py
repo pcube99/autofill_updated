@@ -30,7 +30,6 @@ def index():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    login_user = []
     email = request.args.get('email', None)
     passwor = request.args.get('password', None)
     if email in '' or passwor in '' or '@' not in email or not re.match(r'^\w+$',passwor ) or len(passwor) < 6:
@@ -48,6 +47,7 @@ def login():
                 session['email'] = email
                 session['name'] = login_use['name']
                 session['times'] = login_use['times']
+                login_user = []
                 for i in login_use:
                     if(i in "_id"):
                         continue
@@ -57,7 +57,11 @@ def login():
                     else:
                         login_user.append({str(i) : login_use[str(i)]})
                 print(login_user)
-        return jsonify(login_user)
+                return jsonify(login_user)
+            else :
+                message = Markup("<strong> Password is wrong </strong>")
+                flash(message)
+    return render_template('login.html')
 
 @app.route('/login_website', methods=['GET','POST'])
 def login_website():
@@ -183,6 +187,8 @@ def autoupdate_text():
         print(idd)
         val = password.encrypt(val)
     if(request.method == 'POST'):
+        return autofill.autoupdate_texti(idd,val)
+    else:
         return autofill.autoupdate_texti(idd,val)
 
 @app.route('/details', methods=['POST', 'GET'])
