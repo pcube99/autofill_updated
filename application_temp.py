@@ -68,7 +68,7 @@ def login_website():
         if login_use:
             session['isverified'] = login_use['isverified']
             x = login_use['password']
-            if (request.form['pwd'] == password.decrypt(x[0],x[1])):
+            if (request.form['password'] == password.decrypt(x[0],x[1])):
                 session['email'] = request.form['email']
                 session['name'] = login_use['name']
                 session['times'] = login_use['times']
@@ -140,7 +140,7 @@ def signup():
         if existing_user is None:
             session['email'] = request.form['email']
             email_verification(request.form['email'])
-            hashpass=password.encrypt(request.form['pwd'])
+            hashpass=password.encrypt(request.form['password'])
             #print(sha256_crypt.verify("password", password))
             users.insert({'name' : request.form['first_name'],'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'password' : hashpass,
             'address' : request.form['address1'],'address1' : request.form['address2'],
