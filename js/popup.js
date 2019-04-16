@@ -374,7 +374,7 @@ function documentEvents3() {
 
               chrome.tabs.executeScript(
                   tabs[0].id,
-                  {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=email' +'"+ website.website_url+"'  + '&value=' + document.getElementsByName('email')[0].value, true); xmlHttp.send(null);"});
+                  {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=email' +'"+ website.website_url+"'  + '&value=' + document.getElementsByName('email')[0].value, false); xmlHttp.send(null);"});
           
       });
     });
@@ -389,7 +389,7 @@ function documentEvents3() {
             console.log(website.website_password);
             chrome.tabs.executeScript(
                 tabs[0].id,
-                {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=password' +'"+ website.website_password+"'  + '&value=' + document.getElementsByName('password')[0].value, true); xmlHttp.send(null);"});
+                {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=password' +'"+ website.website_password+"'  + '&value=' + document.getElementsByName('password')[0].value, false); xmlHttp.send(null);"});
         
     });
   });

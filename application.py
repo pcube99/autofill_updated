@@ -185,10 +185,8 @@ def autoupdate_text():
     val = request.args.get('value', None)
     if "password" in idd:
         print(idd)
-        idd = password.encrypt(val)
+        val = password.encrypt(val)
     if(request.method == 'POST'):
-        return autofill.autoupdate_texti(idd,val)
-    else:
         return autofill.autoupdate_texti(idd,val)
 
 @app.route('/details', methods=['POST', 'GET'])
