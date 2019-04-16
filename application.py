@@ -96,6 +96,7 @@ def email_verification(receiver):
     msg = MIMEMultipart()
     global otp
     otp = randint(1000, 9999)
+    global otp_array
     otp_array.append(str(otp))
     print("otp " + str(otp))
     msg['From'] = 'autofill.sen@gmail.com'
