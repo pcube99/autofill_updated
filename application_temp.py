@@ -28,7 +28,6 @@ change_password = ''
 @myapp.route('/')
 def index():
     return 'index1'
-
 @myapp.route('/login', methods=['GET','POST'])
 def login():
     email = request.args.get('email', None)
