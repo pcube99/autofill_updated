@@ -12,12 +12,12 @@ class TestMyApp(unittest.TestCase):
 
     #login
     def test_login(self):
-        rv = self.myapp.get('login?email=milandungrani42@gmail.com&password=123456')
+        rv = self.myapp.get('login?email=gg3@mailsac.com&password=123456')
         self.assertEqual(str(rv.data).split('b')[1].split("'")[1], str('successfully login'))
 
     #wrong password
     def test_login1(self):
-        rv = self.myapp.get('login?email=milandungrani42@gmail.com&password=1234')
+        rv = self.myapp.get('login?email=gg3@mailsac.com&password=1234')
         self.assertEqual(str(rv.data).split('b')[1].split("'")[1], str('Invalid'))
 
     #wrong email
@@ -57,12 +57,12 @@ class TestMyApp(unittest.TestCase):
 
     #login and then check details page
     def test_details1(self):
-        rv1 = self.myapp.get('/details?email=milandungrani42@gmail.com&password=12345678')
+        rv1 = self.myapp.get('/details?email=gg3@mailsac.com&password=12345678')
         self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], 'wrong password or email')
 
     #login and then check details page
     def test_details3(self):
-        rv1 = self.myapp.get('/details?email=milandungrani42@gmail.com&password=123456')
+        rv1 = self.myapp.get('/details?email=gg3@mailsac.com&password=123456')
         self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], 'success')
     
     #for logout
@@ -72,12 +72,12 @@ class TestMyApp(unittest.TestCase):
 
     #autofill after successful login
     def test_autofill(self):
-        rv = self.myapp.get('/autofill?email=milandungrani42@gmail.com&password=123456&url=https://www.github.com')
+        rv = self.myapp.get('/autofill?email=gg3@mailsac.com&password=123456&url=https://www.github.com')
         self.assertEqual(str(rv.data).split('b')[1].split("'")[1], 'success')
 
     #autofill after wrong login
     def test_autofill2(self):
-        rv = self.myapp.get('/autofill?email=milandungrani42@gmail.com&password=12345&url=https://www.github.com')
+        rv = self.myapp.get('/autofill?email=gg3@mailsac.com&password=12345&url=https://www.github.com')
         self.assertEqual(str(rv.data).split('b')[1].split("'")[1], 'Invalid')
     
     #autofill after wrong login details
@@ -97,7 +97,7 @@ class TestMyApp(unittest.TestCase):
 
     #autoupdate when wrong email or pass
     def test_autoupdate1(self):
-        rv = self.myapp.get('/autoupdate?email=gg3@mailsac.com&password=123456&id=email&value=201601094daiict@gmail.com')
+        rv = self.myapp.get('/autoupdate?email=gg3@mailsac.com&password=1234567&id=email&value=201601094daiict@gmail.com')
         self.assertEqual(str(rv.data).split('b')[1].split("'")[1], 'wrong password or email')
 
     # autoupdate when no such user exists 
@@ -112,7 +112,7 @@ class TestMyApp(unittest.TestCase):
 
     # verify when user is already verified
     def test_verify1(self):
-        rv1 = self.myapp.get('/verify?email=milandungrani42@gmail.com&password=123456&otp=2421')
+        rv1 = self.myapp.get('/verify?email=gg3@mailsac.com&password=123456&otp=2421')
         self.assertEqual(str(rv1.data).split('b')[1].split("'")[1], "already verified")
 
     # verify when user enters right otp
@@ -140,7 +140,3 @@ class TestMyApp(unittest.TestCase):
         rv = self.myapp.get('/resend')
         self.assertEqual(rv.status, '200 OK')
     
-        
-    # def test_autoupdate(self):
-    #     rv = self.myapp.get('afss.herokuapp.com/autoupdate')
-#     self.assertEqual(rv.status, '500 INTERNAL SERVER ERROR')

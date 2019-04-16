@@ -77,7 +77,6 @@ def login_website():
                     if(i in "_id"):
                         continue
                     login_user.append({str(i) : login_use[str(i)]})
-                print(login_user)
                 return render_template('index.html')
             else:
                 message = Markup("<strong>Wrong Password !</strong>")
@@ -91,7 +90,6 @@ def email_verification(receiver):
     global otp
     otp = randint(1000, 9999)
     otp_array.append(str(otp))
-    print("otp " + str(otp))
     msg['From'] = 'autofill.sen@gmail.com'
     msg['To'] = receiver
     msg['Subject'] = 'Autofill : Verify your email'
@@ -137,7 +135,6 @@ def signup():
             session['email'] = request.form['email']
             email_verification(request.form['email'])
             hashpass=password.encrypt(request.form['pwd'])
-            #print(sha256_crypt.verify("password", password))
             users.insert({'name' : request.form['first_name'],'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'pwd' : hashpass,
             'address' : request.form['address1'],'address1' : request.form['address2'],
             'zipcode' : request.form['zipcode'],'city' : request.form['city'],
@@ -159,9 +156,7 @@ def autofill_text():
     users = mongo.db.users
     url = request.args.get('url', None)
     email = request.args.get('email', None)
-    #print(email)
     passwor = request.args.get('password', None)
-    print(url)
     existing_user = users.find_one({'email' : email})
     if(request.method == 'POST'):
         existing_user = users.find_one({'email' : email})
@@ -171,7 +166,6 @@ def autofill_text():
             return "Invalid"
         users = mongo.db.users
         login_use = users.find_one({'email' : email})
-    # print(login_user)
         if login_use:
             x = login_use['pwd']
             pss = password.decrypt(x[0],x[1])
