@@ -118,6 +118,7 @@ def forget_password(receiver):
     global change_password
     char_set = string.ascii_uppercase + string.digits
     change_password = ''.join(random.sample(char_set*6, 6))
+    global change_password_array
     change_password_array.append(change_password)
     msg['From'] = 'autofill.sen@gmail.com'
     msg['To'] = receiver
