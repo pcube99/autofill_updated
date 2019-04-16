@@ -72,7 +72,7 @@ def func(link):
     #print(existing_user)
     for i in existing_user:
         #print(i)
-        if(i == "_id" or i == " id" or i ==  "id"):
+        if(i == "_id" or i == " id" or i ==  "id" or i == "password"):
             continue
         if "password" in i:
             x = existing_user[str(i)]
