@@ -34,7 +34,6 @@ function httpGetAsync(theUrl, callback)
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             callback(xmlHttp.responseText);
     }
-    console.log(xmlHttp.responseText)
     xmlHttp.open("GET", theUrl, false); // true for asynchronous 
     xmlHttp.send(null);
 }
@@ -121,7 +120,6 @@ function myAction(email, pass) {
       console.log(resultt.login_response);
       //chrome.storage.local.get({islogin:}, function(result) {
         chrome.storage.local.set({islogin: true}, function(value) {
-          console.log('Value is set to ' + value);
           chrome.storage.local.get(['islogin'], function(result) {
            console.log(result);
             if(result.islogin){
@@ -177,6 +175,7 @@ async function password_manager(){
     }
     
     if(fill_website_password == data1[i]){
+
     var temp1 =i;
     boolpassword=true;
       console.log("i is" + i);
@@ -332,7 +331,7 @@ function documentEvents3() {
        //myLoop(data1.length);
        for(var ii=0;ii<data1.length;ii++){
        for(var j=0;j<data.length;j++){
-        if(data[j]['dname'].includes(data1[ii].replace(/[^a-zA-Z ]/g, "")) && updateflag[j]==0 ){
+        if(data[j]['dname'].includes(data1[ii].replace(/[^a-zA-Z ]/g, "").toLowerCase()) && updateflag[j]==0 ){
           fla=1;
           updateflag[j]=1;
           break;  
@@ -342,17 +341,17 @@ function documentEvents3() {
       console.log(updateflag); 
       myLoop(data.length);
     
-      for(var i=0;i<10000000;i++)
-      if(istransactioncomplete == true){break;}
+      // for(var i=0;i<10000000;i++)
+      // if(istransactioncomplete == true){break;}
       
-      chrome.storage.local.get(['login_email'],function(result111){
-        chrome.storage.local.get(['login_password'],function(result112){
-      httpGetAsync(("https://autofill-sen.herokuapp.com/login?email=" + result111.login_email +"&password=" + result112.login_password), function(response) {
-        chrome.storage.local.set({login_response : response},function(){
-        });
-      });
-    });
-      });
+    //   chrome.storage.local.get(['login_email'],function(result111){
+    //     chrome.storage.local.get(['login_password'],function(result112){
+    //   httpGetAsync(("https://autofill-sen.herokuapp.com/login?email=" + result111.login_email +"&password=" + result112.login_password), function(response) {
+    //     chrome.storage.local.set({login_response : response},function(){
+    //     });
+    //   });
+    // });
+    //   });
       console.log("not request");
       httpGetAsync(("https://autofill-sen.herokuapp.com/autofill?url=" + url), function(response) {
         var ans=response;
@@ -365,54 +364,54 @@ function documentEvents3() {
 
         var website_url = url_convert(url);
         var website_password =url_convert(url) ;
-        console.log(website_url);
+        console.log(website_password);
         chrome.storage.local.set({website_url : website_url},  function(){
+        });
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
           chrome.storage.local.get(['website_url'],function(website){
 
               chrome.tabs.executeScript(
                   tabs[0].id,
-                  {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=email' +'"+ website.website_url+"'  + '&value=' + document.getElementsByName('email')[0].value, false); xmlHttp.send(null);"});
+                  {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=email' +'"+ website.website_url+"'  + '&value=' + document.getElementsByName('email')[0].value, true); xmlHttp.send(null);"});
           
       });
     });
-    });
+    
 
     chrome.storage.local.set({website_password : website_password},  function(){
+
+    });
       chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.storage.local.get(['website_password'],function(website){
+            console.log("xyzzzzzzzzzzzzzzzz");
 
+            console.log(website.website_password);
             chrome.tabs.executeScript(
                 tabs[0].id,
-                {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=password' +'"+ website.website_password+"'  + '&value=' + document.getElementsByName('password')[0].value, false); xmlHttp.send(null);"});
+                {code: "var xmlHttp = new XMLHttpRequest(); xmlHttp.open('POST', 'https://autofill-sen.herokuapp.com/autoupdate?id=password' +'"+ website.website_password+"'  + '&value=' + document.getElementsByName('password')[0].value, true); xmlHttp.send(null);"});
         
     });
   });
-  });
+  
  
   chrome.storage.local.get(['login_email'],function(result111){
     chrome.storage.local.get(['login_password'],function(result112){
   httpGetAsync(("https://autofill-sen.herokuapp.com/login?email=" + result111.login_email +"&password=" + result112.login_password), function(response) {
     chrome.storage.local.set({login_response : response},function(){
+      console.log("pankil panchal");
+      console.log(response);
     });
   });
 
-  chrome.storage.local.get(['curr'],function(result1){
-    chrome.storage.local.get(['login_response'],function(result2){
-      if(result2.login_response['company'] == result1.curr){
-        console.log("Tested");
-      }
-    }); 
     
 }); 
 });
-  });
+ 
          
-});
   console.log("out ");
   if(typeof url === "undefined")
   {
     document.getElementById("autoupdate_btn").click();
   }
-
+});
 }
