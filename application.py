@@ -40,8 +40,9 @@ def login():
        # print(login_user)
         if login_use:
             x = login_use['password']
+            print("x is " + x)
             pss = password.decrypt(x[0],x[1])
-            print(pss)
+            print("decrypt " + pss)
             if (passwor == pss):
                 print("HIIII")
                 session['email'] = email
