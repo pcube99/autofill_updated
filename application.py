@@ -47,7 +47,6 @@ def login():
                 print("HIIII")
                 session['email'] = email
                 session['name'] = login_use['name']
-                session['times'] = login_use['times']
                 login_user = []
                 for i in login_use:
                     if(i in "_id"):
@@ -75,7 +74,6 @@ def login_website():
             if (request.form['password'] == password.decrypt(x[0],x[1])):
                 session['email'] = request.form['email']
                 session['name'] = login_use['name']
-                session['times'] = login_use['times']
                 if login_use['isverified'] == 'false':
                     message = Markup("<strong>Verify your email !</strong>")
                     flash(message)
@@ -155,7 +153,6 @@ def signup():
             })
             session['email'] = request.form['email']
             session['name'] = request.form['first_name']
-            session['times'] = '1'
             return redirect(url_for('verify'))
         else:
             message = Markup("<strong>That Account already exists!</strong>")
@@ -172,11 +169,7 @@ def autofill_text():
     #existing_user = users.find_one({'email' : session['email']})
 
     if(request.method == 'POST'):
-       # print(str(int(existing_user['times'])+1))
-        users.update({'email': existing_user['email']}, {'$set' : {'times' : str(int(existing_user['times'])+1)}})
         existing_user = users.find_one({'email' : session['email']})
-        session['times'] = existing_user['times']
-        #print('after' +  session['times'])
         return render_template("autoupdate.html")
     else:
         return jsonify(autofill.func(url))
