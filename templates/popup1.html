@@ -2,64 +2,41 @@
 <html>
   <head>
     <title>Wonderful Extension</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
     <script src="../js/popup.js"></script>
     <script src="../js/options.js"></script>     
-    <script src="../js/content.js"></script>     
+    <script src="../js/content.js"></script> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    
+
      
   </head>
   <body>   
-    <div style="display: none" id="container">
+    <div style="display: none;" id="container">
     <div style="padding: 20px 20px 20px 20px;">           
         <h3>Hello,</h3>
-        <p>Email: </p>         
+        <p>Please enter your email: </p>         
         <input id="name_textbox" />    
-        <p>Password: </p>         
-        <input type="password" id="pass_textbox" />        
-        <br>  
-         <button class="btn btn--radius btn--green btn btn-primary" id="ok_btn" type="button"><i class="fas fa-check-circle"></i> Submit</button>
-         <br>
-    </div>    
-    
-    
-
-    <div style="display: none" id="logined">
-        <h3>Choose an option from below :</h3>
-
-        <div id="logine" style="padding: 0px 20px 5px 20px">
-            <button class="btn btn--radius btn--green btn btn-primary" id="autofill_btn" type="button"><i class="fas fa-power-off"></i> Autofill</button>
-    
-        </div>
-    
-        <div id="logout" style="padding: 0px 20px 5px 20px">
-            <button class="btn btn--radius btn--green btn btn-primary" id="logout_btn" type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
-    
-        </div>
-        <div id="logine_autp" style="padding: 0px 20px 5px 20px;">
-          <button class="btn btn--radius btn--green btn btn-primary" id="autoupdate_btn" type="button">AutoUpdate</button>
-    
-      </div>
-        </div>
+        <p>Please enter your Password: </p>         
+        <input type="password" id="pass_textbox" />                 
+        <button class="btn btn--radius btn--green btn btn-primary" id="ok_btn" type="button"><i class="fas fa-check-circle"></i> Submit</button>
+    </div>      
     </div>
-
-
-    <!-- <div id="logined">
-    <div id="logine" style="padding: 0px 20px 5px 20px">
-        <button class="btn btn--radius btn--green btn btn-primary" id="autofill_btn" type="button"><i class="fas fa-power-off"></i> Autofill</button>
+    <div id="logined" style="display: none;">
+    <div id="logine" style="padding: 20px 20px 20px 20px;">
+        <button id="autofill_btn" type="button">Autofill</button>
 
     </div>
 
-    <div id="logout" style="padding: 0px 20px 5px 20px">
-        <button class="btn btn--radius btn--green btn btn-primary" id="logout_btn" type="button"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    <div id="logout" style="padding: 20px 20px 20px 20px;">
+        <button id="logout_btn" type="button">Logout</button>
 
     </div>
-    <div id="logine_autp" style="padding: 0px 20px 5px 20px;">
-      <button class="btn btn--radius btn--green btn btn-primary" id="autoupdate_btn" type="button">AutoUpdate</button>
+    <div id="logine_autp" style="padding: 20px 20px 20px 20px;">
+      <button id="autoupdate_btn" type="button">AutoUpdate</button>
 
   </div>
-    </div> -->
+    </div>
 
   </body>
 </html>

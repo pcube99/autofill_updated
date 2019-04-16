@@ -38,7 +38,7 @@ def login():
         login_use = users.find_one({'email' : email})
        # print(login_user)
         if login_use:
-            x = login_use['password']
+            x = login_use['pwd']
             print(x)
             pss = x
             print("decrypt " + pss)
@@ -70,7 +70,7 @@ def login_website():
         login_use = users.find_one({'email' : request.form['email']})
         if login_use:
             session['isverified'] = login_use['isverified']
-            x = login_use['password']
+            x = login_use['pwd']
             if (request.form['password'] == x):
                 session['email'] = request.form['email']
                 session['name'] = login_use['name']
@@ -145,7 +145,7 @@ def signup():
             email_verification(request.form['email'])
             hashpass=request.form['password']
             #print(sha256_crypt.verify("password", password))
-            users.insert({'name' : request.form['first_name'] + " "+ request.form['last_name'],'firstname' : request.form['first_name'], 'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'password' : hashpass,
+            users.insert({'name' : request.form['first_name'] + " "+ request.form['last_name'],'firstname' : request.form['first_name'], 'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'pwd' : hashpass,
             'address' : request.form['address1'] + " "+ request.form['address2'] ,'address1' : request.form['address1'],'address2' : request.form['address2'],
             'zipcode' : request.form['zipcode'],'city' : request.form['city'],
             'state' : request.form['state'],'phone' : request.form['phone_no'], 'mobile' : request.form['phone_no'],
@@ -196,7 +196,7 @@ def details():
     rows = {}
     users = mongo.db.users
     existing_user = users.find_one({'email' : session['email']})
-    x = existing_user['password']
+    x = existing_user['pwd']
     print(x)
     if(request.method == 'GET'):
         for i in existing_user:
@@ -281,7 +281,7 @@ def changedpassword():
             opp.append(passw[1])
             users = mongo.db.users
             existing_user = users.find_one({'email' : session['email']})
-            users.update({'email': existing_user['email']}, {'$set' : {'password' : opp}})
+            users.update({'email': existing_user['email']}, {'$set' : {'pwd' : opp}})
             return redirect(url_for('login_website'))
         else:
             message = Markup("<strong>Please enter the password which is sent to your registered email.</strong>")
