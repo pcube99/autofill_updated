@@ -40,7 +40,7 @@ def login():
        # print(login_user)
         if login_use:
             x = login_use['password']
-            print("x is " + x)
+            print(x)
             pss = password.decrypt(x[0],x[1])
             print("decrypt " + pss)
             if (passwor == pss):
