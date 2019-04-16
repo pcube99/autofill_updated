@@ -11,7 +11,6 @@ import sys ##pnkil
 from functools import wraps
 import time
 from flask import jsonify
-import password
 from random import randint
 import string
 import random
@@ -41,7 +40,7 @@ def login():
         if login_use:
             x = login_use['password']
             print(x)
-            pss = password.decrypt(x[0],x[1])
+            pss = x
             print("decrypt " + pss)
             if (passwor == pss):
                 print("HIIII")
@@ -54,7 +53,7 @@ def login():
                         continue
                     if "password" in i:
                         xx = login_use[str(i)]
-                        login_user.append({str(i) : password.decrypt(xx[0],xx[1])})
+                        login_user.append({str(i) : xx})
                     else:
                         login_user.append({str(i) : login_use[str(i)]})
                 print(login_user)
@@ -72,7 +71,7 @@ def login_website():
         if login_use:
             session['isverified'] = login_use['isverified']
             x = login_use['password']
-            if (request.form['password'] == password.decrypt(x[0],x[1])):
+            if (request.form['password'] == x):
                 session['email'] = request.form['email']
                 session['name'] = login_use['name']
                 session['times'] = login_use['times']
@@ -144,7 +143,7 @@ def signup():
         if existing_user is None:
             session['email'] = request.form['email']
             email_verification(request.form['email'])
-            hashpass=password.encrypt(request.form['password'])
+            hashpass=request.form['password']
             #print(sha256_crypt.verify("password", password))
             users.insert({'name' : request.form['first_name'] + " "+ request.form['last_name'],'firstname' : request.form['first_name'], 'lastname' : request.form['last_name'] ,'email' : request.form['email'], 'password' : hashpass,
             'address' : request.form['address1'] + " "+ request.form['address2'] ,'address1' : request.form['address1'],'address2' : request.form['address2'],
@@ -202,7 +201,7 @@ def details():
     if(request.method == 'GET'):
         for i in existing_user:
             if str(i) in "password":
-                rows[str(i)] = str(password.decrypt(x[0],x[1]))
+                rows[str(i)] = str(x)
             else:
                 rows[str(i)] = str(existing_user[str(i)]) 
         #print(rows)
@@ -213,8 +212,8 @@ def details():
         for j in existing_user:
             if(j not in "_id" and j not in "times" and j not in "isverified"):
                 if j in "password":
-                    rows[str(j)] = password.encrypt(request.form[str(j)])[0]
-                    passw = password.encrypt(request.form[str(j)])
+                    rows[str(j)] = request.form[str(j)]
+                    passw = request.form[str(j)]
                     op = []
                     op.append(passw[0])
                     op.append(passw[1])
@@ -276,7 +275,7 @@ def changedpassword():
     if request.method == "POST":
         if(str(request.form['changed_password']) in change_password_array):
             change_password_array.remove(str(request.form['changed_password']))
-            passw = password.encrypt(change_password)
+            passw = change_password
             opp = []
             opp.append(passw[0])
             opp.append(passw[1])
