@@ -20,7 +20,7 @@ html_data = []
 def func(link):
     atts.clear()
     html_data.clear()
-    content = link
+    content = requests.get(link)
     soup = BeautifulSoup(content.text, 'html.parser')
     for t in soup.select('input'):
         html_dict = {}
