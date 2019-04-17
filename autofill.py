@@ -58,7 +58,6 @@ def func(link):
             html_data.append(html_dict)
 
     for t in soup.select('textarea'):
-        html_dict = {}
         #x = str(t).split(" ")###
         #print(x)
         if(('type="text"' in str(t) or 'type="password"' in str(t) or 'type="email"' in str(t) ) and 'hidden="hidden"' not in str(t)):
