@@ -210,14 +210,20 @@ def details():
         #print(existing_user['email'])
         for j in existing_user:
             if(j not in "_id" and j not in "times" and j not in "isverified"):
-                if j in "pwd":
+                if j == "pwd":
+                    rows[str(j)] = password.encrypt(request.form[str(j)])[0]                    
+                    passw = password.encrypt(request.form[str(j)])                    
+                    op = []
+                    op.append(passw[0])
+                    op.append(passw[1])
+                    users.update({'email': existing_user['email']}, {'$set' : {'pwd' : op}})
+                elif "password" in j:
                     rows[str(j)] = password.encrypt(request.form[str(j)])[0]                    
                     passw = password.encrypt(request.form[str(j)])                    
                     op = []
                     op.append(passw[0])
                     op.append(passw[1])
                     users.update({'email': existing_user['email']}, {'$set' : {str(j) : op}})
-
                 else:
                     rows[str(j)] = str(existing_user[str(j)]) 
                     users.update({'email': existing_user['email']}, {'$set' : {str(j) : request.form[str(j)]}})
