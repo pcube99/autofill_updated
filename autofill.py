@@ -57,39 +57,6 @@ def func(link):
             html_dict['area-label'] = re.sub('[^A-Za-z0-9]+', '', id_string.lower())
             html_data.append(html_dict)
 
-    for t in soup.select('textarea'):
-        #x = str(t).split(" ")###
-        #print(x)
-        if(('type="text"' in str(t) or 'type="password"' in str(t) or 'type="email"' in str(t) ) and 'hidden="hidden"' not in str(t)):
-            #print(str(t))
-            #FIND IDS
-            num = str(t).find("id=")
-            itr = num+4
-            id_string = ""
-            while(str(t)[itr] != '"'):
-                id_string += str(t)[itr]
-                itr+=1
-            html_dict['id'] = id_string
-            
-            #FIND NAMES
-            num = str(t).find("name=")
-            itr = num+6
-            id_string = ""
-            while(str(t)[itr] != '"'):
-                id_string += str(t)[itr]
-                itr+=1
-            html_dict['name'] = id_string
-            html_dict['dname'] = re.sub('[^A-Za-z0-9]+', '', id_string.lower())
-
-            #FIND AREA LABEL
-            num = str(t).find("area-label=")
-            itr = num+20
-            id_string = ""
-            while(str(t)[itr] != '"'):
-                id_string += str(t)[itr]
-                itr+=1
-            html_dict['area-label'] = re.sub('[^A-Za-z0-9]+', '', id_string.lower())
-            html_data.append(html_dict)
 
     #print(existing_user['first_name'])
     #DATA OF USER
