@@ -238,7 +238,6 @@ def verify():
     users = mongo.db.users
     existing_user = users.find_one({'email' : session['email']})
     if existing_user['isverified'] == 'false':
-        session.clear()
         if request.method == "POST":
             print(otp_array)
             print(request.form['otp'])
