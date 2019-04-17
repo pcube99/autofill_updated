@@ -102,7 +102,7 @@
               <div style="margin-left: 6%; font-size: 12px">Password length must be in range of 6-12 characters & no special characters are allowed. <input style="margin-left: -49%; margin-top: 1%" type="checkbox" onclick="myFunction('{{row}}')"><span style="margin-left: -47%;">Show password</span> </div>
             </td>
             {% elif "password" in row  %}
-            <td>   <input pattern="[A-Za-z0-9]{6,12}" type="password" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input>
+            <td>   <input type="password" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input>
               <input style="margin-left: -49%; margin-top: 1%" type="checkbox" onclick="myFunction('{{row}}')"><span style="margin-left: -47%;">Show password</span> 
             </td>
             {% elif row in "phoneno" %}
