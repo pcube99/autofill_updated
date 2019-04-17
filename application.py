@@ -49,9 +49,9 @@ def login():
                 session['name'] = login_use['name']
                 login_user = []
                 for i in login_use:
-                    if(i in "_id" or i == "password"):
+                    if(str(i) in "_id" or str(i) == "password"):
                         continue
-                    if "password" in i:
+                    if "password" in str(i):
                         xx = login_use[str(i)]
                         login_user.append({str(i) : password.decrypt(xx[0],xx[1])}) 
                     else:

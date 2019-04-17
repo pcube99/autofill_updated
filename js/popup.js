@@ -48,8 +48,8 @@ async function fill(data, data1,xx ){
     if(data1[xx] == 'email' && boolemail==true)
     continue;
 
-    if(data1[xx] == 'password' && boolpassword==true)
-    continue;
+    
+    
 
     if(data[yy]['area-label'].includes(data1[xx].toLowerCase()) || data[yy]['dname'].includes(data1[xx].toLowerCase()) || data[yy]['name'].includes(data1[xx].toLowerCase())){
       // console.log(data1[i])
@@ -64,6 +64,7 @@ async function fill(data, data1,xx ){
         chrome.storage.local.get(['login_response'],function(resultt){
         dta = JSON.parse(resultt.login_response)[xx][data1[xx]];
         console.log(resultt.login_response);
+        
         console.log(xx);
         console.log(data1[xx]);
         console.log(dta);
@@ -155,11 +156,11 @@ async function password_manager(){
       if(fill_website_email==data1[i]){
         var temp =i;
         boolemail=true;
-        console.log("i is" + i);
+        console.log("ei is" + temp);
         console.log(data1);
         chrome.storage.local.get(['login_response'],function(resultt){
           console.log(JSON.parse(resultt.login_response));
-          console.log("i isss "+i);
+          //console.log("i isss "+i);
           console.log(JSON.parse(resultt.login_response)[temp]);
         chrome.storage.local.set({data_website_email : JSON.parse(resultt.login_response)[temp][data1[temp]]},  function(){
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -177,12 +178,13 @@ async function password_manager(){
     if(fill_website_password == data1[i]){
 
     var temp1 =i;
+    console.log("i isss "+temp1);
     boolpassword=true;
-      console.log("i is" + i);
+      console.log("pi is" + temp1);
       console.log(data1);
       chrome.storage.local.get(['login_response'],function(resultt){
         console.log(JSON.parse(resultt.login_response));
-        console.log("i isss "+i);
+        // console.log("i isss "+temp1);
         console.log(JSON.parse(resultt.login_response)[temp1]);
       chrome.storage.local.set({data_website_password : JSON.parse(resultt.login_response)[temp1][data1[temp1]]},  function(){
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
