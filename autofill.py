@@ -22,7 +22,7 @@ def func(link):
     html_data.clear()
     content = requests.get(link)
     soup = BeautifulSoup(content.text, 'html.parser')
-    for t in soup.select('input'):
+    for t in soup.select('input' or 'textarea'):
         html_dict = {}
         #x = str(t).split(" ")###
         #print(x)
