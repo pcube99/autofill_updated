@@ -199,7 +199,7 @@ def details():
     print(x)
     if(request.method == 'GET'):
         for i in existing_user:
-            if str(i) in "password":
+            if "password" in str(i) or "pwd" in str(i):
                 rows[str(i)] = str(password.decrypt(x[0],x[1]))            
             else:
                 rows[str(i)] = str(existing_user[str(i)]) 

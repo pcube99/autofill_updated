@@ -21,40 +21,18 @@
     <!-- Vendor CSS-->
     <!-- <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all"> -->
     <link rel="stylesheet" href="../static/style.css">
-
-
-<!-- <style>
-        #grad1 {
-      background-color: orange; /* For browsers that do not support gradients */
-      background-image: repeating-linear-gradient(orange);  /* Standard syntax (must be last) */
-    }
-    body{
-      background-image: url("../static/background.jpg");
-
-        }
-        .page-wrapper {
-          min-height: 100vh;
-        }
-
-  </style> -->
-
+    <script>
+      function myFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+} 
+    </script>
 </head>
 <body>
-    <!-- <nav class="navbar navbar-light" style="background-color: #f9ccc2 ;">
-        <div class="container-fluid">
-          <div class="navbar-header">
-                  <a class="navbar-brand" href="/"><strong class="black_text">Auto-Fill (Application Bharo)</strong></a>
-              </div>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="/"><span class="glyphicon glyphicon-home black_text"></span> <strong class="black_text">Home</strong></a></li>
-                <li><a href="signup"><span class="glyphicon glyphicon-user black_text"></span> <strong class="black_text">Sign Up</strong></a></li>
-                <li><a href="login"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log in</strong></a></li>
-                <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
-
-              </ul>
-        </div>
-      </nav> -->
-     
       <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
           <!-- <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
@@ -136,80 +114,13 @@
                   <div class="form-group row col-sm-10">
                     <label class="col-form-label" for="exampleInputPassword1">Password</label>
                     <div class="col-sm-10">
-                      <input style="margin-left: 6%" required pattern="[A-Za-z0-9]{6,12}" type="password" class="form-control" name = "password" id="password" placeholder="Password">
-                      <span style="margin-left: 6%; font-size: 12px">Password length must be in range of 6-12 characters & no special characters are allowed.</span>
+                      <input style="margin-left: 6%" required pattern="[A-Za-z0-9]{6,12}" type="password" class="form-control" name = "password" id="password" placeholder="Password"> 
+                      <div style="margin-left: 6%; font-size: 12px">Password length must be in range of 6-12 characters & no special characters are allowed. <input style="margin-left: -49%; margin-top: 1%" type="checkbox" onclick="myFunction()"><span style="margin-left: -47%;">Show password</span> </div>
             
                     </div>
                   </div>
 
-                  <!-- <div class="col-2 input-group form-group row col-sm-10" >
-                    <label class="col-sm-4 col-form-label" for="pwd">Password:</label>
-                    <div class="col-sm-10">          
-                      <input type="password" class="input--style-1" id="pwd" placeholder="Password" name="pwd">
-                    </div>
-                  </div> -->
                   
-                  <!-- <div class="form-group row col-sm-10">
-                    <label class="col-form-label" for="exampleInputPassword1">Confirm PWD</label>
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
-                    </div>
-                  </div>
-                   -->
-
-                  <!-- <div class="col-2 input-group form-group row col-sm-10" >
-                        <label class="col-sm-4 col-form-label" for="pwd">Confirm Password:</label>
-                        <div class="col-sm-10">          
-                          <input type="password" class="input--style-1" id="pwd" placeholder="Confirm Password" name="confirm_pwd">
-                        </div>
-                </div> -->
-            
-
-                  <!-- <div class="form-group row col-sm-10" > 
-                      <label class="col-sm-4 col-form-label">Gender</label>
-                      <div class="radio col-sm-10" >
-                          <label>
-                          <input type="radio" name="l" value="male" >
-                          Male
-                      </label>
-                      </div>
-                      <div class="radio col-sm-10" >
-                          <label>
-                          <input type="radio"  name="l" value="female">
-                          Female
-                          </label>
-                      </div>
-                      <div class="radio col-sm-10" >
-                              <label>
-                                  <input type="radio"  name="l" value="other">
-                                  Other
-                              </label>
-                              </div>
-                  </div>     -->
-                  <!-- <div class="form-group row col-sm-10">
-                  <div class="">
-                      <div class="js-select-simple select--no-search">
-                          <label class="col-form-label">Gender</label>
-
-                          <select name="gender">
-                              <option>Select</option>
-                              <option>Male</option>
-                              <option>Female</option>
-                              <option>Other</option>
-                          </select>
-                          <div class="select-dropdown"></div>
-                      </div>
-                  </div>
-                </div> -->
-
-
-                        <!-- <div class="form-group row col-sm-10" >
-                          <label class="col-form-label" for="date">DOB</label>
-                          <div class="col-sm-10">
-                              <input type="date" class="form-control" value="yyyy-mm-dd" id="example-date-input" placeholder="username" name="dob">
-                          </div>
-                        </div> -->
-
                       <div class="form-group row col-sm-10" > <!-- Street 1 -->
                           <label for="street1_id" class="col-form-label">Address 1</label>
                           <div class="col-sm-10">          

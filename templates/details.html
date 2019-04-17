@@ -11,36 +11,9 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../static/style.css">
         <script src="../js/index.js"></script>
-        <!-- <style>
-      body{
-        background-image: url("../static/background.jpg");
-          }
-  
-      </style> -->
+       
 </head>
 <body>
-<!-- <nav class="navbar navbar-light navbar-expand-lg" style="background-color: #f9ccc2 ;"> 
-       <div class="container-fluid">
-          <div class="navbar-header ">
-            <a class="navbar-brand" href="/"><strong class="black_text">Auto-Fill (Application Bharo)</strong></a>
-          </div>
-          <ul class="nav navbar-nav navbar-right">
-              {% if session.email %}
-              <li><a href="/"><span class="glyphicon glyphicon-home black_text"></span> <strong class="black_text">Home</strong></a></li>
-              <li><a href="{{ url_for('details') }}"><span class="glyphicon glyphicon-cog black_text"></span> <strong class="black_text">Details</strong></a></li>
-              <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
-              <li><a href="{{ url_for('logout') }}"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log out</strong></a></li>
-  
-              {% else %}
-              <li><a href="signup"><span class="glyphicon glyphicon-user black_text"></span> <strong class="black_text">Sign Up</strong></a></li>
-              <li><a href="login_website"><span class="glyphicon glyphicon-log-in black_text"></span> <strong class="black_text">Log in</strong></a></li>
-              <li><a href="help"><span class="glyphicon glyphicon-question-sign black_text"></span> <strong class="black_text">Help</strong></a></li>
-  
-              {% endif %}
-          </ul>
-        </div>
-</nav> -->
-
 <nav class="navbar navbar-dark bg-dark">
     <div class="navbar-header ">
         <a class="navbar-brand" href="/"><i class="fab fa-autoprefixer"></i> Application Bharo</a>
@@ -100,7 +73,7 @@
 {% endwith %}
 
 <form action="{{ url_for('details') }}" method="post">
-  <div class="col-sm-10 col-form-label button_center" id="details_button">
+  <div class="col-sm-10 col-form-label button_center" id="details_button" style="margin-left: 38%">
     <button type="submit" class="btn btn-primary btn-lg" name="updatedetails1">Update Details</button>
   </div>
 <div id="details">
@@ -111,12 +84,27 @@
 <table class="table">
         <tbody>
             {% for row in rows %}
-           
+            <script>
+                function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.type === "password") {
+              x.type = "text";
+            } else {
+              x.type = "password";
+            }
+          } 
+              </script>
             {% if row not in "_id" and row not in "times" and row not in "isverified" %}          
             <tr id="details_table">
             <td >    {{row}}</td>
-            {% if row in "password" %}
-            <td>   <input pattern="[A-Za-z0-9]{6,12}" type="password" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input></td>
+            {% if "pwd" in row  %}
+            <td>   <input pattern="[A-Za-z0-9]{6,12}" type="password" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input>
+              <div style="margin-left: 6%; font-size: 12px">Password length must be in range of 6-12 characters & no special characters are allowed. <input style="margin-left: -49%; margin-top: 1%" type="checkbox" onclick="myFunction('{{row}}')"><span style="margin-left: -47%;">Show password</span> </div>
+            </td>
+            {% elif "password" in row  %}
+            <td>   <input pattern="[A-Za-z0-9]{6,12}" type="password" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input>
+              <input style="margin-left: -49%; margin-top: 1%" type="checkbox" onclick="myFunction('{{row}}')"><span style="margin-left: -47%;">Show password</span> 
+            </td>
             {% elif row in "phoneno" %}
             <td>   <input pattern="[7-9]{1}[0-9]{9}" type="text" id="{{row}}" name="{{row}}" value="{{rows[row]}}" class="black_text"></input></td>
               {% else %}
