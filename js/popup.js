@@ -42,6 +42,8 @@ function timer(ms) {
  }
 
 async function fill(data, data1,xx ){
+  document.getElementById('autofill_btn').style.display = 'none';
+
   for(var yy=0;yy<data.length;yy++){
     if(data1[xx] == 'email' && boolemail==true)
     continue;
@@ -79,6 +81,7 @@ async function fill(data, data1,xx ){
     }
      await timer(1500);
      if(yy == xx-1)
+        document.getElementById('autofill_btn').style.display = 'block';
      await password_manager();
     }
 
@@ -240,7 +243,8 @@ function documentEvents2() {
 
 var ii = 0;                     
 var timeoutt;
-function myLoop (x) {           
+function myLoop (x) {    
+  document.getElementById('autoupdate_btn').style.display = "none";       
    timeoutt = setTimeout(function () {  
     if(updateflag[ii] == 0){
       chrome.storage.local.set({curr : data[ii]['name']},  function(){
@@ -261,6 +265,8 @@ flag.push(1);
          myLoop(x);              
       }       
       else{
+
+        document.getElementById('autoupdate_btn').style.display = "block";
         istransactioncomplete=true;
         clearTimeout(timeoutt);
       }                 
