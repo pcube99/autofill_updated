@@ -210,7 +210,7 @@ def details():
         #print(existing_user['email'])
         for j in existing_user:
             if(j not in "_id" and j not in "times" and j not in "isverified"):
-                if "password" in j or j in "pwd":
+                if j in "pwd":
                     rows[str(j)] = password.encrypt(request.form[str(j)])[0]                    
                     passw = password.encrypt(request.form[str(j)])                    
                     op = []
