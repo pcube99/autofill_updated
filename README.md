@@ -2,7 +2,7 @@
 This project is a part of out course. Basic idea behind creating this project is to save user's time by giving them functionality 
 of autofilling forms.
 
-## **This code is written in Python, HTML, CSS and Flask.**
+## **This code is written in Python, HTML, CSS, JS and Flask.**
 
 ## **How to run ?**
 1) First dowload or clone the zip file.
@@ -25,11 +25,3 @@ pip install -r requirements.txt
 source venv/bin/activate
 python3 application.py
 ```
-
-
-## **Not able to execute perfectly !!!**
-1) If you face Geckodriver error while running then refer to below link,
-https://stackoverflow.com/questions/40208051/selenium-using-python-geckodriver-executable-needs-to-be-in-path
-
-2) Chromedriver error,
-https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
