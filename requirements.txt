@@ -15,4 +15,4 @@ requests==2.21.0
 soupsieve==1.9
 urllib3==1.24.1
 Werkzeug==0.15.2
-cryptography==2.2.2
+cryptography==3.2
